@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { toggleTask, updateTask, deleteTask } from "@/app/actions";
 
 interface Task {
@@ -15,6 +15,11 @@ export default function TaskList({ tasks: initialTasks }: { tasks: Task[] }) {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editTitle, setEditTitle] = useState("");
   const [isPending, startTransition] = useTransition();
+
+  // Sync local state when server-revalidated props change
+  useEffect(() => {
+    setTasks(initialTasks);
+  }, [initialTasks]);
 
   function handleToggle(id: string, currentValue: boolean) {
     // Optimistic update

@@ -2,7 +2,7 @@
   "id": "FEAT-001",
   "type": "chore",
   "description": "Install dependencies (including Supabase packages), set up Supabase client utilities, create .env.example, create SQL migration file, and configure Next.js middleware for auth session refresh and route protection.",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "Run: export PATH=\"/root/.nvm/versions/node/v22.22.3/bin:$PATH\" && cd /projects/sandbox/kiro-web-tasks-manager && npm install",
     "Install Supabase packages: npm install @supabase/supabase-js @supabase/ssr",
@@ -28,5 +28,5 @@
     "export PATH=\"/root/.nvm/versions/node/v22.22.3/bin:$PATH\" && cd /projects/sandbox/kiro-web-tasks-manager && npm run build"
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "Next.js 16 deprecates the 'middleware' file convention in favor of 'proxy', but middleware.ts still compiles and works. Build shows warning: 'The middleware file convention is deprecated. Please use proxy instead.' cookies() from next/headers is async in Next.js 16 - must be awaited. @supabase/ssr setAll callback has a second 'headers' parameter for cache-control headers but it is optional. .env* is gitignored by default so .env.example needed git add -f."
 }

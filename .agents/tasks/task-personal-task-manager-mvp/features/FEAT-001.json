@@ -1,0 +1,32 @@
+{
+  "id": "FEAT-001",
+  "type": "chore",
+  "description": "Install dependencies (including Supabase packages), set up Supabase client utilities, create .env.example, create SQL migration file, and configure Next.js middleware for auth session refresh and route protection.",
+  "status": "completed",
+  "steps": [
+    "Run: export PATH=\"/root/.nvm/versions/node/v22.22.3/bin:$PATH\" && cd /projects/sandbox/kiro-web-tasks-manager && npm install",
+    "Install Supabase packages: npm install @supabase/supabase-js @supabase/ssr",
+    "Create .env.example at project root with NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY placeholder values",
+    "Create .env.local with the same keys set to placeholder values so build does not fail (values: http://localhost:54321 and placeholder-anon-key)",
+    "Create lib/supabase/server.ts - server-side Supabase client using @supabase/ssr with cookie handling for Next.js App Router (uses cookies() from next/headers)",
+    "Create lib/supabase/client.ts - browser-side Supabase client using @supabase/ssr createBrowserClient",
+    "Create middleware.ts at project root - refreshes auth session on every request, redirects unauthenticated users to /login (except for /login and /signup routes)",
+    "Create supabase/migrations/001_create_tasks_table.sql with the tasks table DDL, RLS enablement, and RLS policy as specified in the PRD",
+    "Verify build passes: npm run build"
+  ],
+  "acceptance_criteria": [
+    "npm install completes without errors",
+    "@supabase/supabase-js and @supabase/ssr are in package.json dependencies",
+    ".env.example exists with documented env vars",
+    "lib/supabase/server.ts exports a createServerClient function",
+    "lib/supabase/client.ts exports a createBrowserClient function",
+    "middleware.ts exists and exports a config with matcher for protected routes",
+    "supabase/migrations/001_create_tasks_table.sql contains correct DDL with RLS",
+    "npm run build succeeds"
+  ],
+  "verification": [
+    "export PATH=\"/root/.nvm/versions/node/v22.22.3/bin:$PATH\" && cd /projects/sandbox/kiro-web-tasks-manager && npm run build"
+  ],
+  "blocked_reason": null,
+  "findings": "Next.js 16 deprecates the 'middleware' file convention in favor of 'proxy', but middleware.ts still compiles and works. Build shows warning: 'The middleware file convention is deprecated. Please use proxy instead.' cookies() from next/headers is async in Next.js 16 - must be awaited. @supabase/ssr setAll callback has a second 'headers' parameter for cache-control headers but it is optional. .env* is gitignored by default so .env.example needed git add -f."
+}

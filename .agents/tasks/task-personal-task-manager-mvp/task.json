@@ -1,0 +1,7 @@
+{
+  "task_id": "task-personal-task-manager-mvp",
+  "task_description": "Build a personal task manager MVP with Next.js App Router, Supabase Auth (email/password), and Supabase Postgres for task persistence. Features: signup/login, CRUD tasks, toggle complete, RLS data isolation. All UI uses responsive Tailwind CSS and semantic HTML.",
+  "status": "in_progress",
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003"],
+  "blocked_reason": null
+}

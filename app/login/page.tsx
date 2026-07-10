@@ -33,7 +33,22 @@ export default function LoginPage() {
     <main className="flex min-h-screen items-center justify-center px-4 sm:px-6 lg:px-8">
       <section className="w-full max-w-md space-y-6">
         <header className="text-center">
-          <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={1.5}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="mx-auto h-12 w-12 text-blue-600 dark:text-blue-400"
+            aria-hidden="true"
+          >
+            <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
+            <rect x="9" y="3" width="6" height="4" rx="1" />
+            <path d="M9 14l2 2 4-4" />
+          </svg>
+          <h1 className="mt-4 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
             Sign in to your account
           </h1>
           <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">

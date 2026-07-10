@@ -1,0 +1,40 @@
+{
+  "id": "FEAT-002",
+  "type": "feat",
+  "description": "Build auth pages (login/signup) and the tasks dashboard with full CRUD. Includes creating the UI components for email/password authentication, the task list view, task creation form, inline editing, deletion, and toggle complete functionality. All pages use responsive Tailwind CSS utility classes and semantic HTML.",
+  "status": "pending",
+  "steps": [
+    "Create app/login/page.tsx - login form with email/password fields, submits to Supabase Auth signInWithPassword, shows error messages, has link to /signup. Use semantic HTML (form, label, input, button) and responsive Tailwind classes.",
+    "Create app/signup/page.tsx - signup form with email/password fields, submits to Supabase Auth signUp, shows success/error messages, has link to /login. Same semantic HTML and Tailwind patterns.",
+    "Create app/login/actions.ts and app/signup/actions.ts - server actions for login and signup that use the server Supabase client, handle errors, and redirect on success",
+    "Update app/page.tsx to be the authenticated tasks dashboard. Fetch tasks from Supabase (server component), sorted by created_at desc. Display tasks with title, completion status (checkbox), edit and delete actions. Completed tasks have strikethrough styling.",
+    "Create a client component app/components/TaskList.tsx that receives tasks and handles: (a) toggling is_complete via checkbox with optimistic UI update, (b) inline title editing, (c) delete button that removes immediately",
+    "Create a client component app/components/AddTaskForm.tsx - form with a text input for title, validates non-empty before submitting, creates task via Supabase client, adds to list",
+    "Create app/actions.ts with server actions for: createTask, updateTask, deleteTask, toggleTask - all use the server Supabase client",
+    "Update app/layout.tsx metadata to title 'Task Manager' and description 'Personal task manager'",
+    "Add a sign-out button/link in the dashboard header that calls Supabase Auth signOut and redirects to /login",
+    "Verify build passes: npm run build",
+    "Verify lint passes: npm run lint"
+  ],
+  "acceptance_criteria": [
+    "app/login/page.tsx renders a login form with email and password fields",
+    "app/signup/page.tsx renders a signup form with email and password fields",
+    "Root page (/) shows the task dashboard for authenticated users",
+    "Tasks are fetched from Supabase and displayed sorted by created_at desc",
+    "User can add a task with a non-empty title",
+    "User can toggle task completion (checkbox updates is_complete)",
+    "User can edit a task title inline",
+    "User can delete a task",
+    "Completed tasks are visually distinguished (strikethrough)",
+    "Sign-out button exists and calls Supabase signOut",
+    "All pages use semantic HTML (header, main, form, section, nav) and responsive Tailwind classes",
+    "npm run build succeeds",
+    "npm run lint passes (or only has non-critical warnings)"
+  ],
+  "verification": [
+    "export PATH=\"/root/.nvm/versions/node/v22.22.3/bin:$PATH\" && cd /projects/sandbox/kiro-web-tasks-manager && npm run build",
+    "export PATH=\"/root/.nvm/versions/node/v22.22.3/bin:$PATH\" && cd /projects/sandbox/kiro-web-tasks-manager && npm run lint"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

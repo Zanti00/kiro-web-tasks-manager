@@ -1,0 +1,24 @@
+{
+  "project_type": "Next.js 16 App Router with Supabase backend",
+  "language": "TypeScript",
+  "build_system": "npm with Next.js CLI. Node v22 available at /root/.nvm/versions/node/v22.22.3/bin. Must prepend to PATH: export PATH=\"/root/.nvm/versions/node/v22.22.3/bin:$PATH\"",
+  "test_framework": "No test framework configured yet. Verification via build + lint.",
+  "build_command": "export PATH=\"/root/.nvm/versions/node/v22.22.3/bin:$PATH\" && cd /projects/sandbox/kiro-web-tasks-manager && npm run build",
+  "test_command": "export PATH=\"/root/.nvm/versions/node/v22.22.3/bin:$PATH\" && cd /projects/sandbox/kiro-web-tasks-manager && npm run lint",
+  "verification_instructions": "1. Run npm install to install dependencies. 2. Run npm run build to confirm build passes. 3. Run npm run lint to confirm no lint errors.",
+  "snapshot_or_generated_files": null,
+  "setup_instructions": "export PATH=\"/root/.nvm/versions/node/v22.22.3/bin:$PATH\" && cd /projects/sandbox/kiro-web-tasks-manager && npm install",
+  "environment_constraints": "Node.js not on default PATH - must export PATH with /root/.nvm/versions/node/v22.22.3/bin. OPEN_INTERNET network mode - npm registry accessible. node_modules not yet installed (need npm install).",
+  "contribution_requirements": "AGENTS.md says to read node_modules/next/dist/docs/ before writing code (if that directory exists after install). Use responsive Tailwind CSS utility classes and semantic HTML for all layout sections (from steering file).",
+  "key_patterns": "Next.js 16.2.4 App Router, Tailwind CSS 4 via @tailwindcss/postcss, path alias @/* mapped to project root, Geist font loaded in layout.tsx, dark mode support via prefers-color-scheme media query in globals.css.",
+  "relevant_files": [
+    "app/layout.tsx",
+    "app/page.tsx",
+    "app/globals.css",
+    "package.json",
+    "tsconfig.json",
+    "next.config.ts",
+    "postcss.config.mjs"
+  ],
+  "directory_structure": "app/ - Next.js App Router pages and layouts. public/ - static assets (SVGs). Root - config files (tsconfig, next.config, eslint, postcss)."
+}

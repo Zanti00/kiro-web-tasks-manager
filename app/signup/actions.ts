@@ -1,5 +1,6 @@
 "use server";
 
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 export async function signup(formData: FormData) {
@@ -21,5 +22,5 @@ export async function signup(formData: FormData) {
     return { error: error.message };
   }
 
-  return { success: "Check your email to confirm your account." };
+  redirect("/login?signup=success");
 }

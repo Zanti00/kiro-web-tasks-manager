@@ -7,7 +7,7 @@ import { signup } from "./actions";
 export default function SignupPage() {
   const [state, formAction, pending] = useActionState(
     async (
-      _prevState: { error?: string; success?: string } | null,
+      _prevState: { error?: string } | null,
       formData: FormData
     ) => {
       return await signup(formData);
@@ -43,15 +43,6 @@ export default function SignupPage() {
             </div>
           )}
 
-          {state?.success && (
-            <div
-              role="status"
-              className="rounded-md bg-green-50 p-3 text-sm text-green-700 dark:bg-green-900/20 dark:text-green-400"
-            >
-              {state.success}
-            </div>
-          )}
-
           <div>
             <label
               htmlFor="email"
@@ -82,9 +73,10 @@ export default function SignupPage() {
               name="password"
               type="password"
               required
+              minLength={6}
               autoComplete="new-password"
               className="mt-1 block w-full rounded-md border border-zinc-300 px-3 py-2 text-sm shadow-sm placeholder:text-zinc-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
-              placeholder="Choose a password"
+              placeholder="Choose a password (min. 6 characters)"
             />
           </div>
 

@@ -1,8 +1,25 @@
 "use client";
 
-import { useActionState } from "react";
+import { Suspense, useActionState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { login } from "./actions";
+
+function SignupSuccessBanner() {
+  const searchParams = useSearchParams();
+  const signupSuccess = searchParams.get("signup") === "success";
+
+  if (!signupSuccess) return null;
+
+  return (
+    <div
+      role="status"
+      className="rounded-md bg-green-50 p-3 text-sm text-green-700 dark:bg-green-900/20 dark:text-green-400"
+    >
+      Account created successfully. Please sign in.
+    </div>
+  );
+}
 
 export default function LoginPage() {
   const [state, formAction, pending] = useActionState(
@@ -31,6 +48,10 @@ export default function LoginPage() {
         </header>
 
         <form action={formAction} className="space-y-4">
+          <Suspense fallback={null}>
+            <SignupSuccessBanner />
+          </Suspense>
+
           {state?.error && (
             <div
               role="alert"
@@ -70,6 +91,7 @@ export default function LoginPage() {
               name="password"
               type="password"
               required
+              minLength={6}
               autoComplete="current-password"
               className="mt-1 block w-full rounded-md border border-zinc-300 px-3 py-2 text-sm shadow-sm placeholder:text-zinc-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
               placeholder="Your password"

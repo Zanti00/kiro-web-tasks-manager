@@ -2,7 +2,7 @@
   "id": "FEAT-002",
   "type": "feat",
   "description": "Write comprehensive unit tests for all server actions (app/actions.ts, app/login/actions.ts, app/signup/actions.ts) by mocking the Supabase client and Next.js server-only modules (next/cache, next/navigation).",
-  "status": "pending",
+  "status": "in_progress",
   "steps": [
     "Create __tests__/actions.test.ts to test all 5 server actions in app/actions.ts: createTask, updateTask, deleteTask, toggleTask, signOut",
     "Mock @/lib/supabase/server (createClient) to return a mock Supabase client with chainable methods: .from().insert(), .from().update().eq(), .from().delete().eq(), .auth.getUser(), .auth.signOut()",

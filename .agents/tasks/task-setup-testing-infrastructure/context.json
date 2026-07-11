@@ -1,0 +1,27 @@
+{
+  "project_type": "Next.js 16 Task Manager with Supabase backend",
+  "language": "TypeScript",
+  "build_system": "npm with Next.js build system. Node v22.22.3 available via nvm (source /root/.nvm/nvm.sh before running any node/npm commands)",
+  "test_framework": "NONE currently - will install Vitest + React Testing Library + jsdom",
+  "build_command": "source /root/.nvm/nvm.sh && npm run build",
+  "test_command": "source /root/.nvm/nvm.sh && npx vitest run",
+  "verification_instructions": "1. Run 'source /root/.nvm/nvm.sh && npm install' to install deps. 2. Run 'source /root/.nvm/nvm.sh && npx vitest run' to run all tests. 3. Confirm all tests pass with zero failures.",
+  "snapshot_or_generated_files": null,
+  "setup_instructions": "source /root/.nvm/nvm.sh && npm install",
+  "environment_constraints": "Node.js requires 'source /root/.nvm/nvm.sh' before use. OPEN_INTERNET network mode - full npm registry access available.",
+  "contribution_requirements": "AGENTS.md warns about Next.js 16 breaking changes - use docs in node_modules/next/dist/docs/ if modifying Next.js-specific code. For testing, this is less relevant since we mock Next.js modules.",
+  "key_patterns": "Server Actions in app/actions.ts use 'use server' directive. All DB access via createClient() from @/lib/supabase/server. Components use React 19 useTransition for async operations. Path alias @/* maps to project root. Client components use 'use client' directive.",
+  "relevant_files": [
+    "app/actions.ts",
+    "app/login/actions.ts",
+    "app/signup/actions.ts",
+    "app/components/TaskList.tsx",
+    "app/components/AddTaskForm.tsx",
+    "app/page.tsx",
+    "lib/supabase/server.ts",
+    "lib/supabase/client.ts",
+    "tsconfig.json",
+    "package.json"
+  ],
+  "directory_structure": "app/ - Next.js app router (page.tsx, actions.ts, layout.tsx, components/, login/, signup/). lib/supabase/ - Supabase client factories (server.ts, client.ts). public/ - static assets. supabase/ - Supabase config."
+}

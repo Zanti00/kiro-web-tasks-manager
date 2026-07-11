@@ -1,0 +1,7 @@
+{
+  "task_id": "task-setup-testing-infrastructure",
+  "task_description": "Set up Vitest + React Testing Library testing infrastructure and write comprehensive unit/component tests for the Next.js task manager application, covering server actions and client components.",
+  "status": "in_progress",
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003"],
+  "blocked_reason": null
+}

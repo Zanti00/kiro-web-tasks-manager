@@ -1,0 +1,26 @@
+{
+  "id": "FEAT-001",
+  "type": "chore",
+  "description": "Install and configure Vitest + React Testing Library + jsdom for the Next.js project. Set up test infrastructure including vitest config, test setup file, and package.json scripts.",
+  "status": "in_progress",
+  "steps": [
+    "Run 'source /root/.nvm/nvm.sh && npm install' to install existing dependencies first",
+    "Install test dependencies: vitest, @testing-library/react, @testing-library/jest-dom, @testing-library/user-event, jsdom, @vitejs/plugin-react as devDependencies",
+    "Create vitest.config.ts at project root that: uses @vitejs/plugin-react, sets test environment to jsdom, configures path alias '@/*' to resolve to './*' (matching tsconfig.json paths), includes setup file, and sets globals:true",
+    "Create a test setup file (e.g., vitest.setup.ts) that imports '@testing-library/jest-dom' for extended matchers",
+    "Add 'test' script to package.json: 'vitest run' and optionally 'test:watch' script: 'vitest'",
+    "Create a minimal smoke test (e.g., __tests__/smoke.test.ts) that asserts 1+1===2 to verify the setup works",
+    "Run 'source /root/.nvm/nvm.sh && npx vitest run' to confirm the test infrastructure works end-to-end"
+  ],
+  "acceptance_criteria": [
+    "Running 'npx vitest run' succeeds with at least one passing test",
+    "vitest.config.ts exists with jsdom environment, React plugin, and path alias configured",
+    "package.json has vitest, @testing-library/react, @testing-library/jest-dom, @testing-library/user-event, jsdom in devDependencies",
+    "package.json has a 'test' script"
+  ],
+  "verification": [
+    "source /root/.nvm/nvm.sh && npx vitest run"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

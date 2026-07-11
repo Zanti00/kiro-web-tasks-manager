@@ -1,0 +1,31 @@
+{
+  "id": "FEAT-002",
+  "type": "feat",
+  "description": "Write comprehensive unit tests for all server actions (app/actions.ts, app/login/actions.ts, app/signup/actions.ts) by mocking the Supabase client and Next.js server-only modules (next/cache, next/navigation).",
+  "status": "completed",
+  "steps": [
+    "Create __tests__/actions.test.ts to test all 5 server actions in app/actions.ts: createTask, updateTask, deleteTask, toggleTask, signOut",
+    "Mock @/lib/supabase/server (createClient) to return a mock Supabase client with chainable methods: .from().insert(), .from().update().eq(), .from().delete().eq(), .auth.getUser(), .auth.signOut()",
+    "Mock next/cache (revalidatePath) and next/navigation (redirect) - redirect should throw a special error to simulate Next.js redirect behavior",
+    "Test createTask: (a) returns error when title is empty/whitespace, (b) redirects to /login when user is not authenticated, (c) returns error when supabase insert fails, (d) calls revalidatePath and returns success on valid input",
+    "Test updateTask: (a) returns error when title is empty/whitespace, (b) returns error when supabase update fails, (c) calls revalidatePath and returns success on valid input",
+    "Test deleteTask: (a) returns error when supabase delete fails, (b) calls revalidatePath and returns success",
+    "Test toggleTask: (a) returns error when supabase update fails, (b) calls revalidatePath and returns success with correct is_complete value",
+    "Test signOut: calls supabase.auth.signOut() and redirects to /login",
+    "Create __tests__/login-actions.test.ts to test app/login/actions.ts login function: (a) returns error when email or password is missing, (b) returns error when signInWithPassword fails, (c) redirects to / on success",
+    "Create __tests__/signup-actions.test.ts to test app/signup/actions.ts signup function: (a) returns error when email or password is missing, (b) returns error when signUp fails, (c) redirects to /login?signup=success on success",
+    "Run 'source /root/.nvm/nvm.sh && npx vitest run' to confirm all action tests pass"
+  ],
+  "acceptance_criteria": [
+    "All server action tests pass with 'npx vitest run'",
+    "Each action has at least a happy path test and relevant error path tests",
+    "Mocks correctly simulate the Supabase client chainable API pattern",
+    "redirect() behavior is properly handled (it throws in Next.js)",
+    "Tests validate actual behavior (return values, side effects) not just that functions exist"
+  ],
+  "verification": [
+    "source /root/.nvm/nvm.sh && npx vitest run __tests__/actions.test.ts __tests__/login-actions.test.ts __tests__/signup-actions.test.ts"
+  ],
+  "blocked_reason": null,
+  "findings": "All 25 server action tests pass. Mocking pattern: vi.mock for module-level mocks with vi.fn() for individual methods. redirect() correctly simulated as throwing NEXT_REDIRECT error. Supabase chainable API mocked via nested return objects. No issues with jsdom environment or path aliases. Full suite runs in under 900ms."
+}

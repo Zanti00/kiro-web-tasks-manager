@@ -1,0 +1,30 @@
+{
+  "id": "FEAT-003",
+  "type": "feat",
+  "description": "Write component tests for TaskList and AddTaskForm using React Testing Library, mocking the server action imports to verify UI behavior, user interactions, optimistic updates, and error handling.",
+  "status": "completed",
+  "steps": [
+    "Create __tests__/components/TaskList.test.tsx to test the TaskList component",
+    "Mock @/app/actions module (toggleTask, updateTask, deleteTask) at the module level with vi.mock",
+    "Test TaskList rendering: (a) renders empty state message when tasks array is empty, (b) renders all tasks with their titles, (c) shows completed tasks with line-through styling, (d) renders Edit and Delete buttons for each task",
+    "Test TaskList toggle interaction: (a) clicking checkbox calls toggleTask with correct args and optimistically updates UI, (b) on toggleTask failure, UI rolls back to original state",
+    "Test TaskList delete interaction: (a) clicking Delete removes task optimistically, (b) on deleteTask failure, UI rolls back",
+    "Test TaskList edit flow: (a) clicking Edit shows input with current title, (b) Save button calls updateTask with trimmed title, (c) Cancel button reverts to view mode, (d) empty edit title does not save",
+    "Create __tests__/components/AddTaskForm.test.tsx to test the AddTaskForm component",
+    "Mock @/app/actions module (createTask) at the module level",
+    "Test AddTaskForm: (a) renders input and Add button, (b) shows client-side error when submitting empty title, (c) calls createTask on valid submission, (d) resets form on successful creation, (e) displays server error from createTask response",
+    "Run 'source /root/.nvm/nvm.sh && npx vitest run' to confirm all component tests pass"
+  ],
+  "acceptance_criteria": [
+    "All component tests pass with 'npx vitest run'",
+    "TaskList tests cover: empty state, rendering tasks, toggle optimistic update + rollback, delete optimistic update + rollback, edit flow (start, save, cancel)",
+    "AddTaskForm tests cover: rendering, validation error, successful submission, server error display",
+    "Tests use @testing-library/user-event for interactions where possible",
+    "Tests query by accessible roles/labels rather than implementation details"
+  ],
+  "verification": [
+    "source /root/.nvm/nvm.sh && npx vitest run __tests__/components/"
+  ],
+  "blocked_reason": null,
+  "findings": "All 24 component tests pass. TaskList: 17 tests covering empty state, rendering, toggle optimistic+rollback, delete optimistic+rollback, edit flow (start, save, cancel, empty validation, whitespace validation, rollback). AddTaskForm: 7 tests covering rendering, client-side validation (empty/whitespace title), successful submission with FormData verification, form reset on success, server error display, and error clearing on re-submission. React 19 form action={handleSubmit} works correctly with testing-library userEvent - no special act() wrapping needed, waitFor handles async transitions. Mock pattern: vi.mock with wrapper functions delegating to vi.fn() variables enables per-test mock configuration via mockResolvedValue/mockResolvedValueOnce. Full suite (52 tests) runs in ~1.7s."
+}

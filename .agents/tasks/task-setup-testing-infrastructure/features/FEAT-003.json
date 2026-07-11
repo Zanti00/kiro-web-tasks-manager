@@ -2,7 +2,7 @@
   "id": "FEAT-003",
   "type": "feat",
   "description": "Write component tests for TaskList and AddTaskForm using React Testing Library, mocking the server action imports to verify UI behavior, user interactions, optimistic updates, and error handling.",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "Create __tests__/components/TaskList.test.tsx to test the TaskList component",
     "Mock @/app/actions module (toggleTask, updateTask, deleteTask) at the module level with vi.mock",
@@ -26,5 +26,5 @@
     "source /root/.nvm/nvm.sh && npx vitest run __tests__/components/"
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "All 24 component tests pass. TaskList: 17 tests covering empty state, rendering, toggle optimistic+rollback, delete optimistic+rollback, edit flow (start, save, cancel, empty validation, whitespace validation, rollback). AddTaskForm: 7 tests covering rendering, client-side validation (empty/whitespace title), successful submission with FormData verification, form reset on success, server error display, and error clearing on re-submission. React 19 form action={handleSubmit} works correctly with testing-library userEvent - no special act() wrapping needed, waitFor handles async transitions. Mock pattern: vi.mock with wrapper functions delegating to vi.fn() variables enables per-test mock configuration via mockResolvedValue/mockResolvedValueOnce. Full suite (52 tests) runs in ~1.7s."
 }

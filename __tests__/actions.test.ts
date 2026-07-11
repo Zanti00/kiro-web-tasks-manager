@@ -21,7 +21,8 @@ vi.mock("next/navigation", () => ({
 const mockInsert = vi.fn();
 const mockUpdate = vi.fn();
 const mockDelete = vi.fn();
-const mockEq = vi.fn();
+const mockUpdateEq = vi.fn();
+const mockDeleteEq = vi.fn();
 const mockGetUser = vi.fn();
 const mockSignOut = vi.fn();
 
@@ -31,11 +32,11 @@ vi.mock("@/lib/supabase/server", () => ({
       insert: mockInsert,
       update: (data: Record<string, unknown>) => {
         mockUpdate(data);
-        return { eq: mockEq };
+        return { eq: mockUpdateEq };
       },
       delete: () => {
         mockDelete();
-        return { eq: mockEq };
+        return { eq: mockDeleteEq };
       },
     })),
     auth: {
@@ -80,6 +81,7 @@ describe("app/actions.ts", () => {
 
       await expect(createTask(formData)).rejects.toThrow(REDIRECT_ERROR);
       expect(redirect).toHaveBeenCalledWith("/login");
+      expect(mockInsert).not.toHaveBeenCalled();
     });
 
     it("returns error when supabase insert fails", async () => {
@@ -135,7 +137,7 @@ describe("app/actions.ts", () => {
     });
 
     it("returns error when supabase update fails", async () => {
-      mockEq.mockResolvedValue({
+      mockUpdateEq.mockResolvedValue({
         error: { message: "Row not found" },
       });
 
@@ -143,24 +145,24 @@ describe("app/actions.ts", () => {
 
       expect(result).toEqual({ error: "Row not found" });
       expect(mockUpdate).toHaveBeenCalledWith({ title: "Updated Title" });
-      expect(mockEq).toHaveBeenCalledWith("id", "task-1");
+      expect(mockUpdateEq).toHaveBeenCalledWith("id", "task-1");
     });
 
     it("calls revalidatePath and returns success on valid input", async () => {
-      mockEq.mockResolvedValue({ error: null });
+      mockUpdateEq.mockResolvedValue({ error: null });
 
       const result = await updateTask("task-2", "  Updated Title  ");
 
       expect(result).toEqual({ success: true });
       expect(mockUpdate).toHaveBeenCalledWith({ title: "Updated Title" });
-      expect(mockEq).toHaveBeenCalledWith("id", "task-2");
+      expect(mockUpdateEq).toHaveBeenCalledWith("id", "task-2");
       expect(revalidatePath).toHaveBeenCalledWith("/");
     });
   });
 
   describe("deleteTask", () => {
     it("returns error when supabase delete fails", async () => {
-      mockEq.mockResolvedValue({
+      mockDeleteEq.mockResolvedValue({
         error: { message: "Permission denied" },
       });
 
@@ -168,24 +170,24 @@ describe("app/actions.ts", () => {
 
       expect(result).toEqual({ error: "Permission denied" });
       expect(mockDelete).toHaveBeenCalled();
-      expect(mockEq).toHaveBeenCalledWith("id", "task-1");
+      expect(mockDeleteEq).toHaveBeenCalledWith("id", "task-1");
     });
 
     it("calls revalidatePath and returns success", async () => {
-      mockEq.mockResolvedValue({ error: null });
+      mockDeleteEq.mockResolvedValue({ error: null });
 
       const result = await deleteTask("task-3");
 
       expect(result).toEqual({ success: true });
       expect(mockDelete).toHaveBeenCalled();
-      expect(mockEq).toHaveBeenCalledWith("id", "task-3");
+      expect(mockDeleteEq).toHaveBeenCalledWith("id", "task-3");
       expect(revalidatePath).toHaveBeenCalledWith("/");
     });
   });
 
   describe("toggleTask", () => {
     it("returns error when supabase update fails", async () => {
-      mockEq.mockResolvedValue({
+      mockUpdateEq.mockResolvedValue({
         error: { message: "Database error" },
       });
 
@@ -193,28 +195,28 @@ describe("app/actions.ts", () => {
 
       expect(result).toEqual({ error: "Database error" });
       expect(mockUpdate).toHaveBeenCalledWith({ is_complete: true });
-      expect(mockEq).toHaveBeenCalledWith("id", "task-1");
+      expect(mockUpdateEq).toHaveBeenCalledWith("id", "task-1");
     });
 
     it("calls revalidatePath and returns success with is_complete=true", async () => {
-      mockEq.mockResolvedValue({ error: null });
+      mockUpdateEq.mockResolvedValue({ error: null });
 
       const result = await toggleTask("task-4", true);
 
       expect(result).toEqual({ success: true });
       expect(mockUpdate).toHaveBeenCalledWith({ is_complete: true });
-      expect(mockEq).toHaveBeenCalledWith("id", "task-4");
+      expect(mockUpdateEq).toHaveBeenCalledWith("id", "task-4");
       expect(revalidatePath).toHaveBeenCalledWith("/");
     });
 
     it("calls revalidatePath and returns success with is_complete=false", async () => {
-      mockEq.mockResolvedValue({ error: null });
+      mockUpdateEq.mockResolvedValue({ error: null });
 
       const result = await toggleTask("task-5", false);
 
       expect(result).toEqual({ success: true });
       expect(mockUpdate).toHaveBeenCalledWith({ is_complete: false });
-      expect(mockEq).toHaveBeenCalledWith("id", "task-5");
+      expect(mockUpdateEq).toHaveBeenCalledWith("id", "task-5");
       expect(revalidatePath).toHaveBeenCalledWith("/");
     });
   });

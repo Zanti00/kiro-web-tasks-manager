@@ -2,7 +2,7 @@
   "id": "FEAT-001",
   "type": "chore",
   "description": "Install testing dependencies and configure Jest + React Testing Library for Next.js 16, React 19, and TypeScript 5. Create test utilities and Supabase mocks.",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "Run `source /root/.nvm/nvm.sh && cd /projects/sandbox/kiro-web-tasks-manager && npm install` to install existing project dependencies first.",
     "Install test dependencies: jest, @jest/globals, ts-jest, jest-environment-jsdom, @testing-library/react, @testing-library/jest-dom, @testing-library/user-event, @types/jest. Use `npm install --save-dev`.",
@@ -24,5 +24,5 @@
     "source /root/.nvm/nvm.sh && cd /projects/sandbox/kiro-web-tasks-manager && npm test -- --passWithNoTests"
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "Jest 30.4.2 was installed (latest). ts-jest 29.4.11 is compatible with Jest 30. Used setupFilesAfterEnv (not setupFiles) for @testing-library/jest-dom because setupFiles runs before the test framework loads and expect is not available. Test files in __tests__/mocks/ and __tests__/setup.ts are excluded via testPathIgnorePatterns."
 }

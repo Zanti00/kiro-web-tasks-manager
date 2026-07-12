@@ -15,7 +15,11 @@ jest.mock("next/cache", () => ({
 }));
 
 // --- next/navigation mocks ---
-export const mockRedirect = jest.fn();
+// Default throws to match Next.js behavior where redirect() throws NEXT_REDIRECT
+// to halt execution. Tests asserting redirect must use expect(...).rejects.toThrow().
+export const mockRedirect = jest.fn().mockImplementation(() => {
+  throw new Error("NEXT_REDIRECT");
+});
 export const mockUseSearchParams = jest.fn().mockReturnValue({
   get: jest.fn().mockReturnValue(null),
   getAll: jest.fn().mockReturnValue([]),
@@ -60,7 +64,9 @@ jest.mock("next/headers", () => ({
 export function resetNextMocks() {
   mockRevalidatePath.mockClear();
   mockRevalidateTag.mockClear();
-  mockRedirect.mockClear();
+  mockRedirect.mockClear().mockImplementation(() => {
+    throw new Error("NEXT_REDIRECT");
+  });
   mockUseSearchParams.mockClear();
   mockUseRouter.mockClear();
   mockUsePathname.mockClear();

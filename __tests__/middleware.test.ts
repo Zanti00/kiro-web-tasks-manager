@@ -134,6 +134,11 @@ describe("middleware", () => {
     });
 
     it("should match regular routes", () => {
+      // Note: matchesPath("/") strips the leading "/" and tests an empty string
+      // against the regex. This correctly passes because the negative lookahead
+      // (which excludes _next, favicon, etc.) does not match empty - meaning
+      // the root path is a valid protected route. This mirrors how Next.js
+      // applies the matcher pattern after removing the leading slash.
       expect(matchesPath("/")).toBe(true);
       expect(matchesPath("/dashboard")).toBe(true);
       expect(matchesPath("/login")).toBe(true);

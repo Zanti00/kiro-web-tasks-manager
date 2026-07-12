@@ -32,7 +32,7 @@ describe("app/login/actions - login", () => {
     formData.set("email", "test@example.com");
     formData.set("password", "password123");
 
-    await login(formData);
+    await expect(login(formData)).rejects.toThrow("NEXT_REDIRECT");
 
     expect(mockSupabase.auth.signInWithPassword).toHaveBeenCalledWith({
       email: "test@example.com",

@@ -69,11 +69,6 @@ describe("app/actions", () => {
         error: null,
       });
 
-      // Simulate Next.js redirect throwing to stop execution
-      mockRedirect.mockImplementation(() => {
-        throw new Error("NEXT_REDIRECT");
-      });
-
       const formData = new FormData();
       formData.set("title", "New Task");
 
@@ -214,11 +209,6 @@ describe("app/actions", () => {
   describe("signOut", () => {
     it("should sign out and redirect to /login", async () => {
       mockSupabase.auth.signOut.mockResolvedValue({ error: null });
-
-      // Simulate Next.js redirect throwing to stop execution
-      mockRedirect.mockImplementation(() => {
-        throw new Error("NEXT_REDIRECT");
-      });
 
       await expect(signOut()).rejects.toThrow("NEXT_REDIRECT");
 

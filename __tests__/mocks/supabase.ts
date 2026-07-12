@@ -91,28 +91,3 @@ export function createMockSupabaseClient() {
     mockResponse,
   };
 }
-
-/**
- * Helper to mock the createClient function from @/lib/supabase/server.
- * Usage in tests:
- *   jest.mock("@/lib/supabase/server", () => ({
- *     createClient: jest.fn(),
- *   }));
- *   const { createClient } = require("@/lib/supabase/server");
- *   const { client } = createMockSupabaseClient();
- *   (createClient as jest.Mock).mockResolvedValue(client);
- */
-export function mockCreateClient() {
-  const { client, queryBuilder, auth, mockResponse } =
-    createMockSupabaseClient();
-
-  const createClient = jest.fn().mockResolvedValue(client);
-
-  return {
-    createClient,
-    client,
-    queryBuilder,
-    auth,
-    mockResponse,
-  };
-}

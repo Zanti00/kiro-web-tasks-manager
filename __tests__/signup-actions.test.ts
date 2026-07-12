@@ -28,7 +28,7 @@ describe("app/signup/actions - signup", () => {
     formData.set("email", "newuser@example.com");
     formData.set("password", "securepass123");
 
-    await signup(formData);
+    await expect(signup(formData)).rejects.toThrow("NEXT_REDIRECT");
 
     expect(mockSupabase.auth.signUp).toHaveBeenCalledWith({
       email: "newuser@example.com",

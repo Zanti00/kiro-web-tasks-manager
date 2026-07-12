@@ -1,0 +1,25 @@
+{
+  "id": "FEAT-002",
+  "type": "feat",
+  "description": "Write comprehensive unit tests for all server actions (app/actions.ts, app/login/actions.ts, app/signup/actions.ts) and the auth middleware (middleware.ts).",
+  "status": "completed",
+  "steps": [
+    "Create __tests__/actions.test.ts testing all 5 server actions in app/actions.ts: createTask (happy path, empty title validation, unauthenticated user redirect, Supabase insert error), updateTask (happy path, empty title validation, Supabase update error), deleteTask (happy path, Supabase delete error), toggleTask (happy path with true/false, Supabase error), signOut (calls signOut and redirects).",
+    "Create __tests__/login-actions.test.ts testing the login action in app/login/actions.ts: happy path (successful sign-in redirects to /), missing email/password validation, Supabase auth error.",
+    "Create __tests__/signup-actions.test.ts testing the signup action in app/signup/actions.ts: happy path (successful signup redirects to /login?signup=success), missing email/password validation, Supabase signUp error.",
+    "Create __tests__/middleware.test.ts testing middleware.ts: authenticated user passes through (response returned as-is), unauthenticated user on protected route redirects to /login, unauthenticated user on /login is not redirected, unauthenticated user on /signup is not redirected, static assets are not matched by middleware config.",
+    "All tests must mock the Supabase client (using __tests__/mocks/supabase.ts) and Next.js navigation/cache functions (using __tests__/mocks/next.ts). Tests should NOT make any real network calls.",
+    "Run all tests and ensure they pass."
+  ],
+  "acceptance_criteria": [
+    "All server action tests pass covering happy paths and error paths.",
+    "Middleware tests cover authenticated pass-through, unauthenticated redirect, and public route exceptions.",
+    "No test makes real network calls or requires Supabase credentials.",
+    "Running `npm test` passes all tests with zero failures."
+  ],
+  "verification": [
+    "source /root/.nvm/nvm.sh && cd /projects/sandbox/kiro-web-tasks-manager && npm test"
+  ],
+  "blocked_reason": null,
+  "findings": "All 31 tests pass. Key patterns: (1) mockRedirect must throw Error('NEXT_REDIRECT') to simulate redirect() stopping execution in createTask unauthenticated case and signOut; (2) middleware.test.ts requires @jest-environment node comment at top since NextRequest/NextResponse need Web APIs not available in jsdom; (3) The Next.js matcher pattern is tested by extracting the inner regex from the pattern and testing path segments without leading slash."
+}

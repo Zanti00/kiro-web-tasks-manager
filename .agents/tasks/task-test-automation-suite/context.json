@@ -1,0 +1,29 @@
+{
+  "project_type": "Next.js 16 App Router task manager with Supabase backend",
+  "language": "TypeScript",
+  "build_system": "npm with Next.js built-in tooling. Node.js v22 available via `source /root/.nvm/nvm.sh` before running any node/npm commands.",
+  "test_framework": "NONE currently. Will set up Jest with React Testing Library for component tests and server action unit tests.",
+  "build_command": "source /root/.nvm/nvm.sh && cd /projects/sandbox/kiro-web-tasks-manager && npm run build",
+  "test_command": "source /root/.nvm/nvm.sh && cd /projects/sandbox/kiro-web-tasks-manager && npm test",
+  "verification_instructions": "1. Run `npm install` to install deps. 2. Run `npm test` to execute all tests. 3. All tests must pass with zero failures.",
+  "snapshot_or_generated_files": null,
+  "setup_instructions": "source /root/.nvm/nvm.sh && cd /projects/sandbox/kiro-web-tasks-manager && npm install",
+  "environment_constraints": "Node.js v22 via nvm (must run `source /root/.nvm/nvm.sh` before any node/npm commands). OPEN_INTERNET network mode - can install any packages. No Supabase instance available - all Supabase calls must be mocked in tests.",
+  "contribution_requirements": "AGENTS.md warns this is Next.js 16 with possible breaking changes from training data. Test framework must be compatible with React 19, Next.js 16, and TypeScript 5.",
+  "key_patterns": "Server actions in app/actions.ts use `createClient()` from @/lib/supabase/server.ts. Components use `useTransition` and `useActionState` for async operations. Middleware uses @supabase/ssr directly. Path aliases use @/* mapping to project root.",
+  "relevant_files": [
+    "app/actions.ts",
+    "app/login/actions.ts",
+    "app/signup/actions.ts",
+    "middleware.ts",
+    "lib/supabase/server.ts",
+    "app/components/AddTaskForm.tsx",
+    "app/components/TaskList.tsx",
+    "app/login/page.tsx",
+    "app/signup/page.tsx",
+    "package.json",
+    "tsconfig.json",
+    "next.config.ts"
+  ],
+  "directory_structure": "app/ - Next.js App Router pages and components. app/actions.ts - main server actions (CRUD tasks + signOut). app/login/ and app/signup/ - auth pages with their own server actions. app/components/ - client components (AddTaskForm, TaskList). lib/supabase/ - Supabase client factory. middleware.ts - auth guard middleware."
+}

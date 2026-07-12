@@ -1,0 +1,28 @@
+{
+  "id": "FEAT-001",
+  "type": "chore",
+  "description": "Install testing dependencies and configure Jest + React Testing Library for Next.js 16, React 19, and TypeScript 5. Create test utilities and Supabase mocks.",
+  "status": "completed",
+  "steps": [
+    "Run `source /root/.nvm/nvm.sh && cd /projects/sandbox/kiro-web-tasks-manager && npm install` to install existing project dependencies first.",
+    "Install test dependencies: jest, @jest/globals, ts-jest, jest-environment-jsdom, @testing-library/react, @testing-library/jest-dom, @testing-library/user-event, @types/jest. Use `npm install --save-dev`.",
+    "Create jest.config.ts at project root configured for Next.js: use ts-jest with ESM support, set moduleNameMapper for @/* path alias, configure jsdom environment for component tests, set testPathIgnorePatterns for .next/ and node_modules/.",
+    "Create __tests__/setup.ts (or jest.setup.ts at root) that imports @testing-library/jest-dom for extended matchers.",
+    "Create __tests__/mocks/supabase.ts that provides a mock factory for the Supabase client matching the interface used in lib/supabase/server.ts. The mock should support chaining patterns like `.from('tasks').insert()`, `.from('tasks').update().eq()`, `.from('tasks').delete().eq()`, `.from('tasks').select().order()`, and `auth.getUser()`, `auth.signInWithPassword()`, `auth.signUp()`, `auth.signOut()`.",
+    "Create __tests__/mocks/next.ts that mocks next/cache (revalidatePath), next/navigation (redirect, useSearchParams, useRouter), and next/headers (cookies).",
+    "Add a `test` script to package.json: `\"test\": \"jest\"`.",
+    "Add a `test:watch` script to package.json: `\"test:watch\": \"jest --watch\"`.",
+    "Verify the test setup works by running `npm test -- --passWithNoTests` to confirm Jest starts cleanly."
+  ],
+  "acceptance_criteria": [
+    "Running `npm test -- --passWithNoTests` exits with code 0.",
+    "jest.config.ts exists and configures module resolution for @/* paths.",
+    "Mock files for Supabase and Next.js modules exist in __tests__/mocks/.",
+    "package.json has `test` and `test:watch` scripts."
+  ],
+  "verification": [
+    "source /root/.nvm/nvm.sh && cd /projects/sandbox/kiro-web-tasks-manager && npm test -- --passWithNoTests"
+  ],
+  "blocked_reason": null,
+  "findings": "Jest 30.4.2 was installed (latest). ts-jest 29.4.11 is compatible with Jest 30. Used setupFilesAfterEnv (not setupFiles) for @testing-library/jest-dom because setupFiles runs before the test framework loads and expect is not available. Test files in __tests__/mocks/ and __tests__/setup.ts are excluded via testPathIgnorePatterns."
+}

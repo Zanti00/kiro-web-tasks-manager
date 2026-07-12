@@ -2,7 +2,7 @@
   "id": "FEAT-003",
   "type": "feat",
   "description": "Write component tests for AddTaskForm and TaskList client components using React Testing Library.",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "Create __tests__/components/AddTaskForm.test.tsx testing AddTaskForm: renders input and submit button, shows validation error when submitting empty title, calls createTask server action with form data on valid submit, resets form after successful creation, displays server-side error message from createTask result.",
     "Create __tests__/components/TaskList.test.tsx testing TaskList: renders empty state message when no tasks, renders list of tasks with titles and checkboxes, toggle checkbox calls toggleTask and optimistically updates UI, clicking Delete calls deleteTask and removes item optimistically, clicking Edit shows inline edit form with current title, saving edit calls updateTask and updates displayed title, cancel edit reverts to non-editing state, handles rollback on toggleTask error, handles rollback on deleteTask error.",
@@ -19,5 +19,5 @@
     "source /root/.nvm/nvm.sh && cd /projects/sandbox/kiro-web-tasks-manager && npm test"
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "All 14 component tests pass. Key findings: (1) React 19 with useTransition requires using deferred promises in rollback tests - immediately resolved mocks don't work because the optimistic state update and the transition callback are batched together by React. Using manual promise resolution allows observing both the optimistic state and the rollback. (2) The AddTaskForm uses the form action pattern with handleSubmit receiving FormData directly - works well with userEvent.click on the submit button. (3) Total test count is now 45 (31 existing + 5 AddTaskForm + 9 TaskList)."
 }

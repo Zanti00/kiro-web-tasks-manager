@@ -1,0 +1,7 @@
+{
+  "task_id": "task-test-automation-suite",
+  "task_description": "Set up a complete test automation suite from scratch for a Next.js 16 task manager app. Install and configure Jest + React Testing Library, create Supabase mocks, write unit tests for server actions and middleware, and write component tests for AddTaskForm and TaskList.",
+  "status": "in_progress",
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003"],
+  "blocked_reason": null
+}

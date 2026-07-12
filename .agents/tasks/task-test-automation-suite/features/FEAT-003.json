@@ -1,0 +1,23 @@
+{
+  "id": "FEAT-003",
+  "type": "feat",
+  "description": "Write component tests for AddTaskForm and TaskList client components using React Testing Library.",
+  "status": "pending",
+  "steps": [
+    "Create __tests__/components/AddTaskForm.test.tsx testing AddTaskForm: renders input and submit button, shows validation error when submitting empty title, calls createTask server action with form data on valid submit, resets form after successful creation, displays server-side error message from createTask result.",
+    "Create __tests__/components/TaskList.test.tsx testing TaskList: renders empty state message when no tasks, renders list of tasks with titles and checkboxes, toggle checkbox calls toggleTask and optimistically updates UI, clicking Delete calls deleteTask and removes item optimistically, clicking Edit shows inline edit form with current title, saving edit calls updateTask and updates displayed title, cancel edit reverts to non-editing state, handles rollback on toggleTask error, handles rollback on deleteTask error.",
+    "Ensure all server action imports (createTask, toggleTask, updateTask, deleteTask) are properly mocked in component tests so no actual server calls happen.",
+    "Run all tests including the new component tests and ensure they pass."
+  ],
+  "acceptance_criteria": [
+    "AddTaskForm tests cover rendering, validation, successful submission, and error display.",
+    "TaskList tests cover empty state, rendering tasks, toggle/edit/delete interactions, optimistic updates, and error rollback.",
+    "All tests are deterministic with no flakiness.",
+    "Running `npm test` passes all tests with zero failures."
+  ],
+  "verification": [
+    "source /root/.nvm/nvm.sh && cd /projects/sandbox/kiro-web-tasks-manager && npm test"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

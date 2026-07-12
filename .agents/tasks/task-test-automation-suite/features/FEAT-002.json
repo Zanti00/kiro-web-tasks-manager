@@ -2,7 +2,7 @@
   "id": "FEAT-002",
   "type": "feat",
   "description": "Write comprehensive unit tests for all server actions (app/actions.ts, app/login/actions.ts, app/signup/actions.ts) and the auth middleware (middleware.ts).",
-  "status": "pending",
+  "status": "in_progress",
   "steps": [
     "Create __tests__/actions.test.ts testing all 5 server actions in app/actions.ts: createTask (happy path, empty title validation, unauthenticated user redirect, Supabase insert error), updateTask (happy path, empty title validation, Supabase update error), deleteTask (happy path, Supabase delete error), toggleTask (happy path with true/false, Supabase error), signOut (calls signOut and redirects).",
     "Create __tests__/login-actions.test.ts testing the login action in app/login/actions.ts: happy path (successful sign-in redirects to /), missing email/password validation, Supabase auth error.",
